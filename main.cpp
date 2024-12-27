@@ -15,4 +15,5 @@ void mostraMenu() {
     cout << "6. Esci\n";
     cout << "********************************************\n";
     cout << "Inserisci la tua scelta: ";
+    //INTERFACCIA LINEA DI COMANDO
 }
