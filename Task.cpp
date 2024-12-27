@@ -24,28 +24,31 @@ string Task::toString() const {
 
     risultato << left << setw(15) << "Titolo:" << titolo << "\n"
               << left << setw(15) << "Descrizione:" << descrizione << "\n"
-              << left << setw(15) << "Priorita':" << to_string(priorita) << "\n"
+              << left << setw(15) << "Priorita':" << priorita << "\n"
               << left << setw(15) << "Completato:" << (completato ? "Si'" : "No") << "\n";
+
     return risultato.str();
 }
 
-string Task::toFileString() const {
-    ostringstream oss;
-    oss << titolo << "|" << descrizione << "|" << priorita << "|" << completato;
-    return oss.str();
+string Task::serializzaPerFile() const {
+    ostringstream stringaConcatenata;
+
+    stringaConcatenata << titolo << "|" << descrizione << "|" << priorita << "|" << completato;
+
+    return stringaConcatenata.str();
 }
 
-Task Task::fromFileString(const string& line) {
-    istringstream iss(line);
-    string titolo, descrizione;
-    int priorita;
-    bool completato;
-    char delimiter;
+Task Task::deserializzaDaFile(const string& testo) {
+    istringstream stringaDiIngresso(testo);
+    string titolo, descrizione, prioritaStr, completatoStr;
 
-    getline(iss, titolo, '|');
-    getline(iss, descrizione, '|');
-    iss >> priorita >> delimiter >> completato;
+    getline(stringaDiIngresso, titolo, '|');
+    getline(stringaDiIngresso, descrizione, '|');
+    getline(stringaDiIngresso, prioritaStr, '|');
+    getline(stringaDiIngresso, completatoStr, '|');
+
+    int priorita = stoi(prioritaStr);
+    bool completato = stoi(completatoStr);
 
     return Task(titolo, descrizione, priorita, completato);
-    //da finire
 }

@@ -25,10 +25,9 @@ public:
 
     string toString() const;
 
-    string toFileString() const;
+    string serializzaPerFile() const;
 
-    static Task fromFileString(const string& line);
+    static Task deserializzaDaFile(const string& testo);
 };
-
 
 #endif //ELEBORATO_GOPALAKRISHNAN_TASK_H
