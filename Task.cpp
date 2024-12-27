@@ -20,12 +20,13 @@ string Task::getTitolo() const {
 }
 
 string Task::toString() const {
-    ostringstream oss;
-    oss << left << setw(15) << "Titolo:" << titolo << "\n"
-        << setw(15) << "Descrizione:" << descrizione << "\n"
-        << setw(15) << "Priorita':" << priorita << "\n"
-        << setw(15) << "Completato:" << (completato ? "Sì" : "No") << "\n";
-    return oss.str();
+    stringstream risultato;
+
+    risultato << left << setw(15) << "Titolo:" << titolo << "\n"
+              << left << setw(15) << "Descrizione:" << descrizione << "\n"
+              << left << setw(15) << "Priorita':" << to_string(priorita) << "\n"
+              << left << setw(15) << "Completato:" << (completato ? "Si'" : "No") << "\n";
+    return risultato.str();
 }
 
 string Task::toFileString() const {
