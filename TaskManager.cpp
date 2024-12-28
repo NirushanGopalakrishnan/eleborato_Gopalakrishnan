@@ -19,11 +19,18 @@ void TaskManager::listaTask() const {
     }
 
     cout << "\nLista dei Task:\n";
-    for (size_t i = 0; i < tasks.size(); ++i) {
+    for (int i = 0; i < tasks.size(); i++) {
         cout << "\n============================================\n";
         cout << "Task " << (i + 1) << ":\n";
         cout << tasks[i].toString();
     }
     cout << "\n============================================\n";
+}
+
+void TaskManager::segnaTaskComeCompletato() {
+    if (tasks.empty()) {
+        cout << "\nNon ci sono task disponibili da completare.\n";
+        return;
+    }
 }
 
