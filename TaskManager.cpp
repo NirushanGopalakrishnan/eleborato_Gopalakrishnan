@@ -32,5 +32,24 @@ void TaskManager::segnaTaskComeCompletato() {
         cout << "\nNon ci sono task disponibili da completare.\n";
         return;
     }
+
+    cout << "\nSeleziona un task da completare:\n";
+    for (int i = 0; i < tasks.size(); i++) {
+        cout << (i + 1) << " -> " << tasks[i].getTitolo() << "\n";
+    }
+
+    cout << "\nInserisci il numero del task da segnare come completato: ";
+    int indiceSelezionato;
+    cin >> indiceSelezionato;
+
+    if (indiceSelezionato <= 0 || indiceSelezionato > tasks.size()) {
+        cout << "\nIndice non valido. Riprova.\n";
+        return;
+    }
+
+    tasks[indiceSelezionato - 1].segnaComeCompletato();
+    cout << "\nTask \"" << tasks[indiceSelezionato - 1].getTitolo() << "\" segnato come completato.\n";
 }
+
+
 

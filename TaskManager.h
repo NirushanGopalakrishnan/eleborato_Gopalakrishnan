@@ -17,9 +17,13 @@ private:
 
 public:
     void aggiungiTask(const Task& task);
+
     void listaTask() const;
+
     void segnaTaskComeCompletato();
+
     void salvaSuFile(const string& nomeFile) const;
+
     void caricaDaFile(const string& nomeFile);
 };
 
