@@ -51,5 +51,16 @@ void TaskManager::segnaTaskComeCompletato() {
     cout << "\nTask \"" << tasks[indiceSelezionato - 1].getTitolo() << "\" segnato come completato.\n";
 }
 
-
+//controllare se giusto
+void TaskManager::salvaSuFile(const string& nomeFile) const {
+    ofstream file(nomeFile);
+    if (!file) {
+        cout << "\nErrore nell'apertura del file per la scrittura.\n";
+        return;
+    }
+    for (const auto& task : tasks) {
+        file << task.serializzaPerFile() << "\n";
+    }
+    cout << "\nTask salvati su " << nomeFile << ".\n";
+}
 
