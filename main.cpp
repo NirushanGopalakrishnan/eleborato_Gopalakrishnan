@@ -41,3 +41,26 @@ int main() {
 
                 manager.aggiungiTask(Task(titolo, descrizione, priorita));
                 break;
+            }
+            case 2: {
+                manager.listaTask();
+                break;
+            }
+            case 3: {
+                manager.segnaTaskComeCompletato();
+                break;
+            }
+            case 4: {
+                string nomeFile;
+                cout << "Inserisci il nome del file per salvare i task: ";
+                cin >> nomeFile;
+                manager.salvaSuFile(nomeFile);
+                break;
+            }
+            case 5: {
+                string nomeFile;
+                cout << "Inserisci il nome del file per caricare i task: ";
+                cin >> nomeFile;
+                manager.caricaDaFile(nomeFile);
+                break;
+            }
