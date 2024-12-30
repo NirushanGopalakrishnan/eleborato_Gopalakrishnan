@@ -64,3 +64,14 @@ void TaskManager::salvaSuFile(const string& nomeFile) const {
     cout << "\nTask salvati su " << nomeFile << ".\n";
 }
 
+void TaskManager::caricaDaFile(const string& nomeFile) {
+
+    tasks.clear();
+    string testo;
+    while (getline(file, testo)) {
+        tasks.push_back(Task::deserializzaDaFile(testo));
+    }
+    cout << "\nTask caricati da " << nomeFile << ".\n";
+}
+
+
