@@ -65,6 +65,11 @@ void TaskManager::salvaSuFile(const string& nomeFile) const {
 }
 
 void TaskManager::caricaDaFile(const string& nomeFile) {
+    ifstream file(nomeFile);
+    if (!file) {
+        cout << "\nErrore nell'apertura del file per la lettura.\n";
+        return;
+    }
 
     tasks.clear();
     string testo;
