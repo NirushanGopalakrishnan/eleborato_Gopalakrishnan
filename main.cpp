@@ -4,8 +4,7 @@
 using namespace std;
 
 void mostraMenu() {
-    cout << "\n********************************************\n";
-    cout << "*              GESTORE TODO LIST          *\n";
+    cout << "GESTORE TODO LIST\n\n";
     cout << "********************************************\n";
     cout << "1. Aggiungi Task\n";
     cout << "2. Lista Task\n";
@@ -15,5 +14,30 @@ void mostraMenu() {
     cout << "6. Esci\n";
     cout << "********************************************\n";
     cout << "Inserisci la tua scelta: ";
-    //INTERFACCIA LINEA DI COMANDO
 }
+
+int main() {
+    TaskManager manager;
+    int scelta;
+
+    do {
+        system("clear");
+        mostraMenu();
+        cin >> scelta;
+        cin.ignore();
+
+        system("clear");
+        switch (scelta) {
+            case 1: {
+                string titolo, descrizione;
+                int priorita;
+
+                cout << "Inserisci il titolo del task: ";
+                getline(cin, titolo);
+                cout << "Inserisci la descrizione del task: ";
+                getline(cin, descrizione);
+                cout << "Inserisci la priorità del task (1-5): ";
+                cin >> priorita;
+
+                manager.aggiungiTask(Task(titolo, descrizione, priorita));
+                break;
