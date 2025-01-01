@@ -21,12 +21,12 @@ int main() {
     int scelta;
 
     do {
-        system("clear");
+        system("cls");
         mostraMenu();
         cin >> scelta;
         cin.ignore();
 
-        system("clear");
+        system("cls");
         switch (scelta) {
             case 1: {
                 string titolo, descrizione;
