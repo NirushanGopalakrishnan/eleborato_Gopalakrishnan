@@ -64,3 +64,21 @@ int main() {
                 manager.caricaDaFile(nomeFile);
                 break;
             }
+            case 6: {
+                cout << "\nUscita dal programma. Arrivederci!\n";
+                break;
+                default:
+                    cout << "\nScelta non valida. Riprova.\n";
+            }
+        }
+
+        if (scelta != 6) {
+            cout << "\nPremi Invio per continuare...";
+            cin.ignore();
+            cin.get();
+        }
+
+    } while (scelta != 6);
+
+    return 0;
+}
