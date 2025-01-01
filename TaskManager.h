@@ -16,6 +16,8 @@ private:
     vector<Task> tasks;
 
 public:
+    const vector<Task> &getTasks() const;
+
     void aggiungiTask(const Task& task);
 
     void listaTask() const;
@@ -25,6 +27,7 @@ public:
     void salvaSuFile(const string& nomeFile) const;
 
     void caricaDaFile(const string& nomeFile);
+
 };
 
 #endif //ELEBORATO_GOPALAKRISHNAN_TASKMANAGER_H

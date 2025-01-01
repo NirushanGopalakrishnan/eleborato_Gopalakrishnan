@@ -8,6 +8,10 @@
 
 using namespace std;
 
+const vector<Task> &TaskManager::getTasks() const {
+    return tasks;
+}
+
 void TaskManager::aggiungiTask(const Task& task) {
     tasks.push_back(task);
 }
