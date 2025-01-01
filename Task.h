@@ -23,6 +23,12 @@ public:
 
     string getTitolo() const;
 
+    string getDescrizione() const;
+
+    int getPriorita() const;
+
+    bool getCompletato() const;
+
     string toString() const;
 
     string serializzaPerFile() const;

@@ -19,13 +19,25 @@ string Task::getTitolo() const {
     return titolo;
 }
 
+string Task::getDescrizione() const {
+    return descrizione;
+}
+
+int Task::getPriorita() const {
+    return priorita;
+}
+
+bool Task::getCompletato() const {
+    return completato;
+}
+
 string Task::toString() const {
     stringstream risultato;
 
     risultato << left << setw(15) << "Titolo:" << titolo << "\n"
               << left << setw(15) << "Descrizione:" << descrizione << "\n"
               << left << setw(15) << "Priorita':" << priorita << "\n"
-              << left << setw(15) << "Completato:" << (completato ? "Si'" : "No") << "\n";
+              << left << setw(15) << "Completato:" << (completato ? "Si" : "No") << "\n";
 
     return risultato.str();
 }
