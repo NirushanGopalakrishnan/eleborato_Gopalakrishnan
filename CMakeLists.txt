@@ -28,7 +28,7 @@ add_library(TaskManager STATIC TaskManager.cpp TaskManager.h)
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE Task TaskManager)
 
-# Aggiungi flag per una migliore gestione degli errori e warning (opzionale)
+# Aggiungi flag per una migliore gestione degli errori e warning
 if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic)
 endif()
