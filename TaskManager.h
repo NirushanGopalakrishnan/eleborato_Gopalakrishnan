@@ -16,13 +16,17 @@ private:
     vector<Task> tasks;
 
 public:
-    const vector<Task> &getTasks() const;
+    const Task& getUltimoTask() const;
+
+    void eliminaUltimoTask();
+
+    void modificaUltimoTask(const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita);
 
     void aggiungiTask(const Task& task);
 
     void listaTask() const;
 
-    void segnaTaskComeCompletato();
+    void segnaUltimoTaskComeCompletato();
 
     void salvaSuFile(const string& nomeFile) const;
 

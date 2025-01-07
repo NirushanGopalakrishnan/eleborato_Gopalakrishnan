@@ -11,16 +11,32 @@ using namespace std;
 TEST(TaskManagerTest, AggiungiTask) {
     TaskManager manager;
     manager.aggiungiTask(Task("Titolo", "Descrizione", 3, false));
-    ASSERT_EQ(manager.getTasks().size(), 1);
-    ASSERT_EQ(manager.getTasks()[0].getTitolo(), "Titolo");
+    ASSERT_EQ(manager.getUltimoTask().getTitolo(), "Titolo");
 }
 
-// Test completamento di un task
-TEST(TaskManagerTest, CompletaTask) {
+// Test elimina ultimo task
+TEST(TaskManagerTest, EliminaUltimoTask) {
     TaskManager manager;
-    manager.aggiungiTask(Task("Titolo", "Descrizione", 3, false));
-    manager.segnaTaskComeCompletato();
-    ASSERT_TRUE(manager.getTasks()[0].getCompletato());
+    manager.aggiungiTask(Task("Task 1", "Descrizione 1", 1, false));
+    manager.aggiungiTask(Task("Task 2", "Descrizione 2", 2, false));
+
+    manager.eliminaUltimoTask();
+
+    const Task& ultimoTask = manager.getUltimoTask();
+    ASSERT_EQ(ultimoTask.getTitolo(), "Task 1");
+}
+
+// Test completamento di ultimo task
+TEST(TaskManagerTest, SegnaUltimoTaskComeCompletato) {
+    TaskManager manager;
+    manager.aggiungiTask(Task("Task 1", "Descrizione 1", 1, false));
+    manager.aggiungiTask(Task("Task 2", "Descrizione 2", 2, false));
+
+    manager.segnaUltimoTaskComeCompletato();
+
+    const Task& ultimoTask = manager.getUltimoTask();
+    ASSERT_TRUE(ultimoTask.getCompletato());
+    ASSERT_EQ(ultimoTask.getTitolo(), "Task 2");
 }
 
 // Test salvataggio e caricamento
@@ -31,9 +47,9 @@ TEST(TaskManagerTest, SalvaCaricaTask) {
 
     TaskManager managerCaricato;
     managerCaricato.caricaDaFile("test_task.txt");
-    ASSERT_EQ(managerCaricato.getTasks().size(), 1);
-    ASSERT_EQ(managerCaricato.getTasks()[0].getTitolo(), "Titolo");
-    ASSERT_EQ(managerCaricato.getTasks()[0].getDescrizione(), "Descrizione");
-    ASSERT_EQ(managerCaricato.getTasks()[0].getPriorita(), 3);
-    ASSERT_TRUE(managerCaricato.getTasks()[0].getCompletato());
+    const Task& ultimoTask = managerCaricato.getUltimoTask();
+    ASSERT_EQ(ultimoTask.getTitolo(), "Titolo");
+    ASSERT_EQ(ultimoTask.getDescrizione(), "Descrizione");
+    ASSERT_EQ(ultimoTask.getPriorita(), 3);
+    ASSERT_TRUE(ultimoTask.getCompletato());
 }

@@ -8,8 +8,32 @@
 
 using namespace std;
 
-const vector<Task> &TaskManager::getTasks() const {
-    return tasks;
+const Task& TaskManager::getUltimoTask() const {
+    if (tasks.empty()) {
+        throw runtime_error("Nessun task disponibile."); // Gestione del caso in cui il vettore sia vuoto
+    }
+    return tasks.back();
+}
+
+void TaskManager::eliminaUltimoTask() {
+    if (tasks.empty()) {
+        cout << "\nNon ci sono task da eliminare.\n";
+        return;
+    }
+
+    tasks.pop_back();
+    cout << "\nTask \"" << tasks.back().getTitolo() << "\" eliminato.\n";
+}
+
+void TaskManager::modificaUltimoTask(const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita) {
+    if (tasks.empty()) {
+        cout << "\nNon ci sono task da modificare.\n";
+        return;
+    }
+
+    Task& ultimoTask = tasks.back();
+    ultimoTask = Task(nuovoTitolo, nuovaDescrizione, nuovaPriorita, ultimoTask.getCompletato());
+    cout << "\nUltimo task modificato con successo.\n";
 }
 
 void TaskManager::aggiungiTask(const Task& task) {
@@ -30,29 +54,15 @@ void TaskManager::listaTask() const {
     }
     cout << "\n============================================\n";
 }
-//cancella, segna l'ultimo, quanti task contiene e quanti
-void TaskManager::segnaTaskComeCompletato() {
+
+void TaskManager::segnaUltimoTaskComeCompletato() {
     if (tasks.empty()) {
         cout << "\nNon ci sono task disponibili da completare.\n";
         return;
     }
 
-    cout << "\nSeleziona un task da completare:\n";
-    for (int i = 0; i < tasks.size(); i++) {
-        cout << (i + 1) << " -> " << tasks[i].getTitolo() << "\n";
-    }
-
-    cout << "\nInserisci il numero del task da segnare come completato: ";
-    int indiceSelezionato;
-    cin >> indiceSelezionato;
-
-    if (indiceSelezionato <= 0 || indiceSelezionato > tasks.size()) {
-        cout << "\nIndice non valido. Riprova.\n";
-        return;
-    }
-
-    tasks[indiceSelezionato - 1].segnaComeCompletato();
-    cout << "\nTask \"" << tasks[indiceSelezionato - 1].getTitolo() << "\" segnato come completato.\n";
+    tasks.back().segnaComeCompletato();
+    cout << "\nL'ultimo task \"" << tasks.back().getTitolo() << "\" è stato segnato come completato.\n";
 }
 
 void TaskManager::salvaSuFile(const string& nomeFile) const {
@@ -81,5 +91,6 @@ void TaskManager::caricaDaFile(const string& nomeFile) {
     }
     cout << "\nTask caricati da " << nomeFile << ".\n";
 }
+
 
 
