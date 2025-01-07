@@ -36,7 +36,7 @@ int main() {
                 getline(cin, titolo);
                 cout << "Inserisci la descrizione del task: ";
                 getline(cin, descrizione);
-                cout << "Inserisci la priorità del task (1-5): ";
+                cout << "Inserisci la priorita del task (1-5): ";
                 cin >> priorita;
 
                 manager.aggiungiTask(Task(titolo, descrizione, priorita));

@@ -30,7 +30,7 @@ void TaskManager::listaTask() const {
     }
     cout << "\n============================================\n";
 }
-
+//cancella, segna l'ultimo, quanti task contiene e quanti
 void TaskManager::segnaTaskComeCompletato() {
     if (tasks.empty()) {
         cout << "\nNon ci sono task disponibili da completare.\n";
@@ -55,7 +55,6 @@ void TaskManager::segnaTaskComeCompletato() {
     cout << "\nTask \"" << tasks[indiceSelezionato - 1].getTitolo() << "\" segnato come completato.\n";
 }
 
-//controllare se giusto
 void TaskManager::salvaSuFile(const string& nomeFile) const {
     ofstream file(nomeFile);
     if (!file) {
