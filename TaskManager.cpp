@@ -8,32 +8,56 @@
 
 using namespace std;
 
-const Task& TaskManager::getUltimoTask() const {
-    if (tasks.empty()) {
-        throw runtime_error("Nessun task disponibile."); // Gestione del caso in cui il vettore sia vuoto
+const Task& TaskManager::getTask(int pos) const {
+    if (pos < 0 || pos >= tasks.size()) {
+        throw out_of_range("Posizione fuori dai limiti: nessun task disponibile in questa posizione.");
     }
-    return tasks.back();
+    return tasks[pos];
 }
 
-void TaskManager::eliminaUltimoTask() {
+void TaskManager::eliminaTask(int pos) {
     if (tasks.empty()) {
         cout << "\nNon ci sono task da eliminare.\n";
         return;
     }
 
-    tasks.pop_back();
-    cout << "\nTask \"" << tasks.back().getTitolo() << "\" eliminato.\n";
+    if (pos < 0 || pos >= tasks.size()) {
+        cout << "\nPosizione fuori dai limiti. Impossibile eliminare il task.\n";
+        return;
+    }
+
+    tasks.erase(tasks.begin() + pos);
+    cout << "\nTask \"" << tasks[pos].getTitolo() << "\" eliminato.\n";
 }
 
-void TaskManager::modificaUltimoTask(const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita) {
+void TaskManager::modificaTask(int pos, const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita) {
     if (tasks.empty()) {
         cout << "\nNon ci sono task da modificare.\n";
         return;
     }
 
-    Task& ultimoTask = tasks.back();
-    ultimoTask = Task(nuovoTitolo, nuovaDescrizione, nuovaPriorita, ultimoTask.getCompletato());
-    cout << "\nUltimo task modificato con successo.\n";
+    if (pos < 0 || pos >= tasks.size()) {
+        cout << "\nPosizione fuori dai limiti. Impossibile modificare il task.\n";
+        return;
+    }
+
+    Task& taskDaModificare = tasks[pos];
+    taskDaModificare = Task(nuovoTitolo, nuovaDescrizione, nuovaPriorita, taskDaModificare.getCompletato());
+    cout << "\nTask alla posizione " << pos << " modificato con successo.\n";
+}
+
+int TaskManager::getTaskTotali() const {
+    return tasks.size();
+}
+
+int TaskManager::getTaskDaCompletare() const {
+    int count = 0;
+    for (const auto& task : tasks) {
+        if (!task.getCompletato()) {
+            count++;
+        }
+    }
+    return count;
 }
 
 void TaskManager::aggiungiTask(const Task& task) {
@@ -55,14 +79,19 @@ void TaskManager::listaTask() const {
     cout << "\n============================================\n";
 }
 
-void TaskManager::segnaUltimoTaskComeCompletato() {
+void TaskManager::segnaTaskComeCompletato(int pos) {
     if (tasks.empty()) {
         cout << "\nNon ci sono task disponibili da completare.\n";
         return;
     }
 
-    tasks.back().segnaComeCompletato();
-    cout << "\nL'ultimo task \"" << tasks.back().getTitolo() << "\" è stato segnato come completato.\n";
+    if (pos < 0 || pos >= tasks.size()) {
+        cout << "\nPosizione fuori dai limiti. Impossibile completare il task.\n";
+        return;
+    }
+
+    tasks[pos].segnaComeCompletato();
+    cout << "\nIl task \"" << tasks[pos].getTitolo() << "\" alla posizione " << pos << " è stato segnato come completato.\n";
 }
 
 void TaskManager::salvaSuFile(const string& nomeFile) const {

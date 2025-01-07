@@ -14,19 +14,28 @@ using namespace std;
 class TaskManager {
 private:
     vector<Task> tasks;
+    string nome;
 
 public:
-    const Task& getUltimoTask() const;
+    TaskManager(const string& nome) : nome(nome) {}
 
-    void eliminaUltimoTask();
+    const string& getNome() const { return nome; }
 
-    void modificaUltimoTask(const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita);
+    const Task& getTask(int pos) const;
+
+    void eliminaTask(int pos);
+
+    void modificaTask(int pos, const string& nuovoTitolo, const string& nuovaDescrizione, int nuovaPriorita);
+
+    int getTaskTotali() const;
+
+    int getTaskDaCompletare() const;
 
     void aggiungiTask(const Task& task);
 
     void listaTask() const;
 
-    void segnaUltimoTaskComeCompletato();
+    void segnaTaskComeCompletato(int pos);
 
     void salvaSuFile(const string& nomeFile) const;
 

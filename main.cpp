@@ -11,19 +11,17 @@ void mostraMenu() {
     cout << "1. Seleziona o Crea un TaskManager\n";
     cout << "2. Aggiungi Task\n";
     cout << "3. Lista Task\n";
-    cout << "4. Segna Ultimo Task come Completato\n";
+    cout << "4. Segna Task Come Completato\n";
     cout << "5. Salva Task su File\n";
     cout << "6. Carica Task da File\n";
-    cout << "7. Elimina Ultimo Task\n";
-    cout << "8. Modifica Ultimo Task\n";
+    cout << "7. Elimina Task\n";
+    cout << "8. Modifica Task\n";
     cout << "9. Esci\n";
     cout << "********************************************\n";
     cout << "Inserisci la tua scelta: ";
 }
 
 int main() {
-    // Vettore per i nomi dei TaskManager
-    vector<string> nomiTaskManager;
     // Vettore per i TaskManager
     vector<TaskManager> taskManagers;
     // Indice del TaskManager attualmente selezionato
@@ -44,19 +42,20 @@ int main() {
                 string nome;
                 cin >> nome;
 
-                for (int i = 0; i < nomiTaskManager.size(); i++) {
-                    if (nomiTaskManager[i] == nome) {
+                bool trovato = false;
+                for (int i = 0; i < taskManagers.size(); i++) {
+                    if (taskManagers[i].getNome() == nome) {
                         indiceCorrente = i;
                         cout << "TaskManager \"" << nome << "\" selezionato.\n";
+                        trovato = true;
                         break;
                     }
                 }
 
-                //se non lo trova lo crea
-                if (indiceCorrente == -1) {
-                    nomiTaskManager.push_back(nome);
-                    taskManagers.push_back(TaskManager());
-                    indiceCorrente = nomiTaskManager.size() - 1;
+                // Se non trovato ne crea uno
+                if (!trovato) {
+                    taskManagers.push_back(TaskManager(nome));
+                    indiceCorrente = taskManagers.size() - 1;
                     cout << "Creato un nuovo TaskManager con nome \"" << nome << "\".\n";
                 }
                 break;
@@ -71,10 +70,10 @@ int main() {
                 int priorita;
 
                 cout << "Inserisci il titolo del task: ";
-                getline(cin, titolo);
+                cin >> titolo;
                 cout << "Inserisci la descrizione del task: ";
-                getline(cin, descrizione);
-                cout << "Inserisci la priorita del task (1-5): ";
+                cin >> descrizione;
+                cout << "Inserisci la priorità del task (1-5): ";
                 cin >> priorita;
 
                 taskManagers[indiceCorrente].aggiungiTask(Task(titolo, descrizione, priorita));
@@ -95,7 +94,11 @@ int main() {
                     break;
                 }
 
-                taskManagers[indiceCorrente].segnaUltimoTaskComeCompletato();
+                int pos;
+                cout << "Inserisci la posizione del task da completare: ";
+                cin >> pos;
+
+                taskManagers[indiceCorrente].segnaTaskComeCompletato(pos);
                 break;
             }
             case 5: {
@@ -128,7 +131,11 @@ int main() {
                     break;
                 }
 
-                taskManagers[indiceCorrente].eliminaUltimoTask();
+                int pos;
+                cout << "Inserisci la posizione del task da eliminare: ";
+                cin >> pos;
+
+                taskManagers[indiceCorrente].eliminaTask(pos);
                 break;
             }
             case 8: {
@@ -137,9 +144,12 @@ int main() {
                     break;
                 }
 
+                int pos;
                 string nuovoTitolo, nuovaDescrizione;
                 int nuovaPriorita;
 
+                cout << "Inserisci la posizione del task da modificare: ";
+                cin >> pos;
                 cout << "Inserisci il nuovo titolo del task: ";
                 cin >> nuovoTitolo;
                 cout << "Inserisci la nuova descrizione del task: ";
@@ -147,7 +157,7 @@ int main() {
                 cout << "Inserisci la nuova priorità del task (1-5): ";
                 cin >> nuovaPriorita;
 
-                taskManagers[indiceCorrente].modificaUltimoTask(nuovoTitolo, nuovaDescrizione, nuovaPriorita);
+                taskManagers[indiceCorrente].modificaTask(pos, nuovoTitolo, nuovaDescrizione, nuovaPriorita);
                 break;
             }
             case 9:
@@ -163,7 +173,7 @@ int main() {
             cin.get();
         }
 
-    } while (scelta != 8);
+    } while (scelta != 9);
 
     return 0;
 }
